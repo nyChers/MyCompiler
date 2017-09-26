@@ -3,14 +3,20 @@
  * @Date:   2017-09-25T23:27:24+08:00
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.cpp
- * @Last modified by:   ny
- * @Last modified time: 26-09-2017
+ * @Last modified by:   nyChers
+ * @Last modified time: 2017-09-27T01:11:37+08:00
  */
 #include "base.h"
 
-bool Base::isChar(char ch) {
+int Base::Kind_Char(char ch) {
+    if(isLetter(ch))
+        return 1;
+    if(isDigit(ch))
+        return 2;
+    if(ch == '$' && ch == '_')
+        return 3;
 
-    return false;
+    return 0;
 }
 
 bool Base::isLetter(char ch) {
@@ -41,8 +47,9 @@ bool Base::spaces(char ch) {
 }
 
 bool Base::isSignwords(char *str) {
+    int len = sizeof(*str)/sizeof(char);
     if(str[0] == '_' || str[0] == '$' || isLetter(str[0])) {
-        for(int i=1; str[i]!='\0'; i++) {
+        for(int i=1; i<len; i++) {
             if(spaces(str[i]))
                 return false;
             return true;
@@ -54,12 +61,42 @@ bool Base::isSignwords(char *str) {
 bool Base::isInt(char *str) {
     int len = sizeof(*str)/sizeof(char);
     if(str[0] == '-' || isDigit(str[0])) {
-
+        for(int i=1; i<len; i++) {
+            if(!isDigit(str[i]))
+                return false;
+        }
+        return true;
     }
+    return false;
 }
 
-bool Base::isFloats(char *ch) {
-
+bool Base::isFloats(char *str) {
+    int flag = 0;
+    int len = sizeof(*str)/sizeof(char);
+    if(str[0] == '-' || isDigit(str[0])) {
+        for(int i=1; i<len; i++) {
+            if(str[i] == '.') {
+                if(flag == 0) {
+                    flag = 1;
+                    continue;
+                }
+                else {
+                    return false;
+                }
+            }
+            if(!isDigit(str[i]))
+                return 0;
+        }
+        return true;
+    }
+    if(str[0] == '.') {
+        for(int i=1; i<len; i++) {
+            if(!isDigit(str[i]))
+                return false;
+        }
+        return true;
+    }
+    return false;
 }
 
 void output(char* token, char* value) {

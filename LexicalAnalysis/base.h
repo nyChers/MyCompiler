@@ -3,8 +3,8 @@
  * @Date:   2017-09-25T23:00:43+08:00
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.h
- * @Last modified by:   ny
- * @Last modified time: 26-09-2017
+ * @Last modified by:   nyChers
+ * @Last modified time: 2017-09-27T01:13:58+08:00
  */
 
 
@@ -37,9 +37,9 @@ public:
 	Base() {
         charnum = 0;
     }
-	virtual ~Base();
+	virtual ~Base() {};
 
-	bool isChar(char);//判断字符类型
+	int Kind_Char(char);//判断字符类型
 	bool spaces(char); //当前空格是否可以消除
 	bool isLetter(char);//是否是字母
 	int iskeyword(char*);//是否是关键字
@@ -47,7 +47,7 @@ public:
 	bool isDigit(char);//是否是数字
 	bool isInt(char*);//是否是整数
 	bool isFloats(char*);//是否是浮点型
-	void output(char*,char*);//输出token-value对``
+	void output(char*,char*);//输出token-value对
 };
 
 #endif
