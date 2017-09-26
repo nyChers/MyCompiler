@@ -51,10 +51,17 @@ bool Base::isSignwords(char *str) {
     return false;
 }
 
-bool Base::isInt(char *ch) {
+bool Base::isInt(char *str) {
+    int len = sizeof(*str)/sizeof(char);
+    if(str[0] == '-' || isDigit(str[0])) {
 
+    }
 }
 
 bool Base::isFloats(char *ch) {
 
+}
+
+void output(char* token, char* value) {
+    printf("< %s , %s >\n", token, value);
 }

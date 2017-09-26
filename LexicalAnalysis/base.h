@@ -14,10 +14,14 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <map>
+#include <vector>
+#include <algorithm>
 #include <string>
+#include <cstring>
+#include <iostream>
 
 static const int keyword_num = 31;
 static const char* keywords[] = { "short", "int", "long", "float", "double", "char"
@@ -43,6 +47,7 @@ public:
 	bool isDigit(char);//是否是数字
 	bool isInt(char*);//是否是整数
 	bool isFloats(char*);//是否是浮点型
+	void output(char*,char*);//输出token-value对``
 };
 
 #endif

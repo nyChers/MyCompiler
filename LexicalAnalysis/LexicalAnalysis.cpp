@@ -7,21 +7,12 @@
  * @Last modified time: 26-09-2017
  */
 
-
-
-#include <cstdio>
-#include <cstdlib>
-#include <map>
-#include <vector>
-#include <algorithm>
-#include <string>
-#include <cstring>
+#include "base.h"
 
 using namespace std;
 
 char* FILE_NAME;
 
-void output(char* key, char* value)
-{
-    printf("< %s , %s >\n", key, value);
-}
+class LexicalAnalysis {
+
+};
