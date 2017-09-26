@@ -3,8 +3,8 @@
  * @Date:   2017-09-25T23:00:43+08:00
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.h
- * @Last modified by:   nyChers
- * @Last modified time: 2017-09-26T00:07:43+08:00
+ * @Last modified by:   ny
+ * @Last modified time: 26-09-2017
  */
 
 
@@ -19,8 +19,8 @@
 #include <string.h>
 #include <string>
 
-static int keyword_num = 31;
-static char* keywords[] = { "short", "int", "long", "float", "double", "char"
+static const int keyword_num = 31;
+static const char* keywords[] = { "short", "int", "long", "float", "double", "char"
 , "struct", "union", "enum", "typedef", "const", "unsigned", "signed", "extern"
 , "static", "void", "if", "else", "switch", "case", "for", "do", "while", "continue"
 , "break", "default", "sizeof", "return", "true", "false","include"};
@@ -35,14 +35,14 @@ public:
     }
 	virtual ~Base();
 
-	int isChar(char c);//判断字符类型
-	int spaces(char c); //当前空格是否可以消除
-	int isLetter(char c);//是否是字母
-	int iskeyword(char str[]);//是否是关键字
-	int isSignwords(char str[]);//是否是标识符
-	int isDigit(char c);//是否是数字
-	int isInt(char str[]);//是否是整数
-	int isFloats(char str[]);//是否是浮点型
+	bool isChar(char);//判断字符类型
+	bool spaces(char); //当前空格是否可以消除
+	bool isLetter(char);//是否是字母
+	int iskeyword(char*);//是否是关键字
+	bool isSignwords(char*);//是否是标识符,不能以字母开头
+	bool isDigit(char);//是否是数字
+	bool isInt(char*);//是否是整数
+	bool isFloats(char*);//是否是浮点型
 };
 
 #endif
