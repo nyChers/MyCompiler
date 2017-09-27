@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T01:43:17+08:00
+ * @Last modified time: 2017-09-27T20:26:23+08:00
  */
 #include "Base.h"
 
@@ -15,7 +15,10 @@ int Base::Kind_Char(char ch) {
         return 2;
     if(ch == '$' && ch == '_')
         return 3;
-
+    if(ch == '\\')
+        return 4;
+    if(ch == '=')
+        return 5;
     return 0;
 }
 
