@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: LexicalAnalysis.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-28T00:43:29+08:00
+ * @Last modified time: 2017-09-28T01:21:54+08:00
  */
 
 #include "LexicalAnalysis.h"
@@ -103,6 +103,7 @@ void LexicalAnalysis::getWord(int state) {
                 word[chcnt++] = buffer_scan[i];
                 break;
             }
+            break;
 
         //通过字母进入的状态
         case 1:
@@ -202,7 +203,7 @@ void LexicalAnalysis::getWord(int state) {
                 case 1:
                 case 2:
                 case 3:
-                    word[charCount] = '\0';
+                    word[chcnt] = '\0';
                     i--;
                     finish = 1;
                     state = 50;
@@ -329,9 +330,12 @@ void LexicalAnalysis::kindWord(char *str) {
             case ':': output(fileout,"? :",str); break;
             case ' ': output(fileout,"SPACE",str); break;
             case '{':
-            case '}': fprintf(fout, "  [ %s ]  ----  [ {} ]\n", str); break;
+            case '}': output(fileout,"{}",str); break;
             case '[':
-            case ']':case '(':case ')':case '.': fprintf(fout, "  [ %s ]  ----  [ [] () . ]\n", str); break;
+            case ']':
+            case '(':
+            case ')':
+            case '.': output(fileout,"()[].",str); break;
             case ',': output(fileout," , ",str); break;
             case ';': output(fileout," ; ",str); break;
             case '+':
