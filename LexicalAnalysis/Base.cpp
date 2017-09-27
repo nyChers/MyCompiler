@@ -4,9 +4,9 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T01:11:37+08:00
+ * @Last modified time: 2017-09-27T01:43:17+08:00
  */
-#include "base.h"
+#include "Base.h"
 
 int Base::Kind_Char(char ch) {
     if(isLetter(ch))
