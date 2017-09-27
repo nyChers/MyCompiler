@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: LexicalAnalysis.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T22:00:25+08:00
+ * @Last modified time: 2017-09-28T00:43:29+08:00
  */
 
 #include "LexicalAnalysis.h"
@@ -196,8 +196,158 @@ void LexicalAnalysis::getWord(int state) {
 
 
         case 4:
+            switch(state) {
+            case 40:
+                switch(Kind_Char(buffer_scan[i])) {
+                case 1:
+                case 2:
+                case 3:
+                    word[charCount] = '\0';
+                    i--;
+                    finish = 1;
+                    state = 50;
+                    break;
+                case 0:
+                    word[chcnt++] = buffer_scan[i];
+                    state = 40;
+                    break;
+                default:
+                    word[chcnt++] = buffer_scan[i];
+                    break;
+                }
+                break;
 
+            case 41:
+                word[chcnt++] = buffer_scan[i];
+                if(buffer_scan[i] == '"') {
+                    if(Kind_Char(buffer_scan[i-1]) == 4){
+                        //为转义 \"
+                    }
+                    else {
+                        word[chcnt] = '\0';
+                        finish = 1;
+                        state = 50;
+                    }
+                }
+                break;
 
+            case 42:
+                word[chcnt++] = buffer_scan[i];
+                if(buffer_scan[i] == '\'') {
+                    word[chcnt] = '\0';
+                    finish = 1;
+                    state = 50;
+                }
+                break;
+
+            case 43:
+                if(buffer_scan[i] == '=') {
+                    word[chcnt++] = buffer_scan[i];
+                    state = 43;
+                }
+                else {
+                    word[chcnt] = '\0';
+                    finish = 1;
+                    i--;
+                    state = 50;
+                }
+                break;
+
+            default:
+                word[chcnt++] = buffer_scan[i];
+                break;
+            }
+            break;
+
+        case 5:
+            finish = 0;
+            state = 0;
+            chcnt = 0;
+            i--;
+
+            kindWord(word);
+            break;
+        default:
+            break;
+        }
+        if(buffer_scan[i+1] == '\0') {
+            word[chcnt] = '\0';
+            kindWord(word);
         }
     }
+}
+
+void LexicalAnalysis::kindWord(char *str) {
+    if(iskeyword(str)) {
+        output(fileout,"KEYWORD",str);
+    }
+    else if(isSignwords(str)) {
+        output(fileout,"SIGNWORD",str);
+    }
+    else if(isInt(str)) {
+        output(fileout,"INTEGER",str);
+    }
+    else if(isFloats(str)) {
+        output(fileout,"FLOAT",str);
+    }
+    else if(str[0] == '\'' && str[strlen(str) - 1] == '\'') {
+        output(fileout,"CHARACTER",str);
+    }
+    else if(str[0] == '"' && str[strlen(str) - 1] == '"') {
+        output(fileout,"STRING",str);
+    }
+    else if(spaces(str[0]) && str[0] != '"' && str[0] != '\'') {
+        if(strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || strcmp(str, "<=") == 0 || strcmp(str, ">=") == 0) {
+            output(fileout,"LOGIC TOKEN",str);
+        }
+        else if(strcmp(str, "<<") == 0 || strcmp(str, ">>") == 0 || strcmp(str, ">>>") == 0 || strcmp(str, "<<<") == 0) {
+            output(fileout,"STREAM TOKEN",str);
+        }
+        else if(strchr(str, '=') != NULL) {
+            if (strcmp(str, "==") == 0 || strcmp(str, "!=") == 0) {
+                output(fileout,"LOGIC TOKEN",str);
+			}
+			else {
+                output(fileout,"EVALUATION",str);
+			}
+        }
+        else if(strcmp(str, "||") == 0) {
+            output(fileout,"LOGIC TOKEN",str);
+        }
+        else if(strcmp(str, "&&") == 0) {
+            output(fileout,"LOGIC TOKEN",str);
+        }
+        else if(strcmp(str, "!") == 0) {
+            output(fileout,"LOGIC TOKEN",str);
+        }
+        else if(strcmp(str, "++") == 0 || strcmp(str, "--") == 0 || strcmp(str, "~") == 0) {
+            output(fileout,"++ -- ~",str);
+        }
+        else if(strlen(str) == 1) {
+            switch (str[0]) {
+            case '?':
+            case ':': output(fileout,"? :",str); break;
+            case ' ': output(fileout,"SPACE",str); break;
+            case '{':
+            case '}': fprintf(fout, "  [ %s ]  ----  [ {} ]\n", str); break;
+            case '[':
+            case ']':case '(':case ')':case '.': fprintf(fout, "  [ %s ]  ----  [ [] () . ]\n", str); break;
+            case ',': output(fileout," , ",str); break;
+            case ';': output(fileout," ; ",str); break;
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '%': output(fileout,"OPERATOR",str); break;
+            case '|':
+            case '^':
+            case '&': output(fileout,"BIT OPERATOR",str); break;
+            default: output(fileout,"OTHER",str); break;
+            }
+        }
+    }
+    else {
+        output(fileout,"ERROR~!",str);
+    }
+
 }

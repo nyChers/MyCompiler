@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T20:26:23+08:00
+ * @Last modified time: 2017-09-28T00:20:47+08:00
  */
 #include "Base.h"
 
@@ -102,6 +102,6 @@ bool Base::isFloats(char *str) {
     return false;
 }
 
-void output(char* token, char* value) {
-    printf("< %s , %s >\n", token, value);
+void output(FILE * f,char* token, char* value) {
+    fprintf(f,"< %s , %s >\n", token, value);
 }

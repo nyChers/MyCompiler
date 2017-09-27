@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.h
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T01:13:58+08:00
+ * @Last modified time: 2017-09-28T00:02:31+08:00
  */
 
 
@@ -47,7 +47,7 @@ public:
 	bool isDigit(char);//是否是数字
 	bool isInt(char*);//是否是整数
 	bool isFloats(char*);//是否是浮点型
-	void output(char*,char*);//输出token-value对
+	void output(FILE *,char*,char*);//输出token-value对
 };
 
 #endif
