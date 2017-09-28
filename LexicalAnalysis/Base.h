@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.h
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-28T00:02:31+08:00
+ * @Last modified time: 2017-09-28T17:07:18+08:00
  */
 
 
@@ -32,10 +32,10 @@ static const char* keywords[] = { "short", "int", "long", "float", "double", "ch
 class Base
 {
 public:
-	int charnum;
+	// int charnum;
 public:
 	Base() {
-        charnum = 0;
+        // charnum = 0;
     }
 	virtual ~Base() {};
 

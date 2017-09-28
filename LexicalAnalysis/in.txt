@@ -6,8 +6,11 @@ using namespace std;
 int main() {
     int a = 0;
     double z12 = 10.3123;
-	int 231a = .2333;
-	
-    cout<<z12<<endl;    
+	int 231a = -1.2333;
+    string _$dd = "a string";
+	while(a<10) {
+        a++;
+    }
+    cout<<z12<<endl;
     return 0;
 }

@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: LexicalAnalysis.h
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-27T23:58:06+08:00
+ * @Last modified time: 2017-09-28T17:28:38+08:00
  */
 
 
@@ -27,13 +27,13 @@ public:
         fclose(fileout);
     };
     void scanwords();//扫描每一行
-    void clearnotes();
-    void getWord(int);
-    void kindWord(char*);
+    void clearnotes();//清楚注释空格
+    void getWord(int);//状态自动机
+    void kindWord(char*);//分类打Token
 private:
     FILE* filein;
     FILE* fileout;
-    char buffer_in[2][256];
+    // char buffer_in[2][256];
     char buffer_scan[256];
 };
 #endif
