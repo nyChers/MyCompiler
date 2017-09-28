@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: LexicalAnalysis.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-28T01:21:54+08:00
+ * @Last modified time: 2017-09-28T11:21:54+08:00
  */
 
 #include "LexicalAnalysis.h"
@@ -159,6 +159,7 @@ void LexicalAnalysis::getWord(int state) {
                     break;
                 }
                 word[chcnt] = '\0';
+                i--;
                 finish = 1;
                 state = 50;
                 break;

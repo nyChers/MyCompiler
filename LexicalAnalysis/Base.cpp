@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: base.cpp
  * @Last modified by:   nyChers
- * @Last modified time: 2017-09-28T01:14:15+08:00
+ * @Last modified time: 2017-09-28T11:14:15+08:00
  */
 #include "Base.h"
 
@@ -50,19 +50,19 @@ bool Base::spaces(char ch) {
 }
 
 bool Base::isSignwords(char *str) {
-    int len = sizeof(*str)/sizeof(char);
+    int len = strlen(str);
     if(str[0] == '_' || str[0] == '$' || isLetter(str[0])) {
         for(int i=1; i<len; i++) {
             if(spaces(str[i]))
                 return false;
-            return true;
         }
+        return true;
     }
     return false;
 }
 
 bool Base::isInt(char *str) {
-    int len = sizeof(*str)/sizeof(char);
+    int len = strlen(str);
     if(str[0] == '-' || isDigit(str[0])) {
         for(int i=1; i<len; i++) {
             if(!isDigit(str[i]))
@@ -75,7 +75,7 @@ bool Base::isInt(char *str) {
 
 bool Base::isFloats(char *str) {
     int flag = 0;
-    int len = sizeof(*str)/sizeof(char);
+    int len = strlen(str);
     if(str[0] == '-' || isDigit(str[0])) {
         for(int i=1; i<len; i++) {
             if(str[i] == '.') {
@@ -103,5 +103,5 @@ bool Base::isFloats(char *str) {
 }
 
 void Base::output(FILE * f,char* token, char* value) {
-    fprintf(f,"< %s , %s >\n", token, value);
+    fprintf(f,"< %-15s , %-15s >\n", token, value);
 }

@@ -1,0 +1,13 @@
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+int main() {
+    int a = 0;
+    double z12 = 10.3123;
+	int 231a = .2333;
+	
+    cout<<z12<<endl;    
+    return 0;
+}
