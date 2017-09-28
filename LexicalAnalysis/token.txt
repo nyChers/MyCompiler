@@ -1,0 +1,78 @@
+< OTHER           , #          >
+< KEYWORD         , include    >
+< LOGIC TOKEN     , <          >
+< SIGNWORD        , iostream   >
+< LOGIC TOKEN     , >          >
+< OTHER           , #          >
+< KEYWORD         , include    >
+< LOGIC TOKEN     , <          >
+< SIGNWORD        , cmath      >
+< LOGIC TOKEN     , >          >
+< SIGNWORD        , using      >
+< SPACE           ,            >
+< SIGNWORD        , namespace  >
+< SPACE           ,            >
+< SIGNWORD        , std        >
+<  ;              , ;          >
+< KEYWORD         , int        >
+< SPACE           ,            >
+< SIGNWORD        , main       >
+< ()[].           , (          >
+< ()[].           , )          >
+< {}              , {          >
+< SPACE           ,            >
+< KEYWORD         , int        >
+< SPACE           ,            >
+< SIGNWORD        , a          >
+< EVALUATION      , =          >
+< INTEGER         , 0          >
+<  ,              , ,          >
+< SIGNWORD        , b          >
+< EVALUATION      , =          >
+< INTEGER         , 1          >
+<  ;              , ;          >
+< SPACE           ,            >
+< SIGNWORD        , b          >
+< EVALUATION      , -=         >
+< SIGNWORD        , a          >
+<  ;              , ;          >
+< SPACE           ,            >
+< KEYWORD         , double     >
+< SPACE           ,            >
+< SIGNWORD        , z12        >
+< EVALUATION      , =          >
+< FLOAT           , 10.3123    >
+<  ;              , ;          >
+< KEYWORD         , int        >
+< SPACE           ,            >
+< ERROR~!         , 231a       >
+<  ;              , ;          >
+< SPACE           ,            >
+< SIGNWORD        , string     >
+< SPACE           ,            >
+< ERROR~!         , _$dd=      >
+< STRING          , "a string" >
+<  ;              , ;          >
+< KEYWORD         , while      >
+< ()[].           , (          >
+< SIGNWORD        , a          >
+< LOGIC TOKEN     , <          >
+< INTEGER         , 10         >
+< ()[].           , )          >
+< {}              , {          >
+< SPACE           ,            >
+< SIGNWORD        , a          >
+< {}              , }          >
+< SPACE           ,            >
+< SIGNWORD        , cout       >
+< STREAM TOKEN    , <<         >
+< SIGNWORD        , z12        >
+< STREAM TOKEN    , <<         >
+< SIGNWORD        , endl       >
+<  ;              , ;          >
+< SPACE           ,            >
+< KEYWORD         , return     >
+< SPACE           ,            >
+< INTEGER         , 0          >
+<  ;              , ;          >
+< {}              , }          >

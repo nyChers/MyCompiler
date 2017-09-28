@@ -4,9 +4,10 @@
 using namespace std;
 
 int main() {
-    int a = 0;
+    int a = 0,b = 1;
+    b -= a;
     double z12 = 10.3123;
-	int 231a = -1.2333;
+	int 231a;
     string _$dd = "a string";
 	while(a<10) {
         a++;

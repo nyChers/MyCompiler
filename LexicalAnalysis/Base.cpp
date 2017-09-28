@@ -13,7 +13,7 @@ int Base::Kind_Char(char ch) {
         return 1;
     if(isDigit(ch))
         return 2;
-    if(ch == '$' && ch == '_')
+    if(ch == '$' || ch == '_')
         return 3;
     if(ch == '\\')
         return 4;
@@ -64,6 +64,8 @@ bool Base::isSignwords(char *str) {
 bool Base::isInt(char *str) {
     int len = strlen(str);
     if(str[0] == '-' || isDigit(str[0])) {
+        if(str[0] == '-' && len <= 1)
+            return false;
         for(int i=1; i<len; i++) {
             if(!isDigit(str[i]))
                 return false;
@@ -76,6 +78,8 @@ bool Base::isInt(char *str) {
 bool Base::isFloats(char *str) {
     int flag = 0;
     int len = strlen(str);
+    if(str[0] == '-' && len <= 1)
+        return false;
     if(str[0] == '-' || isDigit(str[0])) {
         for(int i=1; i<len; i++) {
             if(str[i] == '.') {

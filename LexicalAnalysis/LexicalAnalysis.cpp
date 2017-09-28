@@ -234,7 +234,17 @@ void LexicalAnalysis::getWord(int state) {
             case 40:
                 switch(Kind_Char(buffer_scan[i])) {
                 case 1:
+                    word[chcnt] = '\0';
+                    i--;
+                    finish = 1;
+                    state = 50;
+                    break;
                 case 2:
+                    word[chcnt] = '\0';
+                    i--;
+                    finish = 1;
+                    state = 50;
+                    break;
                 case 3:
                     word[chcnt] = '\0';
                     i--;
@@ -286,7 +296,7 @@ void LexicalAnalysis::getWord(int state) {
                     state = 50;
                 }
                 break;
-
+                
             default:
                 word[chcnt++] = buffer_scan[i];
                 break;
