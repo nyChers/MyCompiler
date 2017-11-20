@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: main.cpp
  * @Last modified by:   NingYu Zhang
- * @Last modified time: 2017-11-16T10:44:06+08:00
+ * @Last modified time: 2017-11-20T20:36:19+08:00
  */
 
 
@@ -31,7 +31,7 @@ void matchToken(string s) {
 		lookahead = lex.getToken();
 }
 
-//≥Ã–Ú
+//Á®ãÂ∫è
 void CX() {
 	if (lookahead.type == "main") {
 		matchToken("main");
@@ -46,7 +46,7 @@ void CX() {
 						cout << "SUCCESSFULLY!" << endl;
 					}
 					else {
-						cout <<setprecision(10)<< " »±…Ÿ } "<<setprecision(10)<<"row: "<<lookahead.r << endl;
+						cout <<setprecision(10)<< " Áº∫ÈîüÊñ§Êã∑ } "<<setprecision(10)<<"row: "<<lookahead.r << endl;
 						cout << setprecision(10) << "row: " << lookahead.r << "col: " << lookahead.c << endl;
 					}
 				}
@@ -58,7 +58,7 @@ void CX() {
 int main() {
 	lex.scanwords();
 	lookahead = lex.getToken();
-	
+
 	CX();
     return 0;
 }
