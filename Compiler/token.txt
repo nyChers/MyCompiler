@@ -1,7 +1,7 @@
-< SIGNWORD        , main       >
-< ()[].           , (          >
-< ()[].           , )          >
-< {}              , {          >
+< KEYWORD         , main       >
+<  (              , (          >
+<  )              , )          >
+<  {              , {          >
 < KEYWORD         , int        >
 < SPACE           ,            >
 < SIGNWORD        , a          >
@@ -20,12 +20,12 @@
 < EVALUATION      , =          >
 <  ;              , ;          >
 < KEYWORD         , while      >
-< ()[].           , (          >
+<  (              , (          >
 < SIGNWORD        , a          >
-< LOGIC TOKEN     , >          >
+< RELATION TOKEN  , >          >
 < INTEGER         , 0          >
-< ()[].           , )          >
-< {}              , {          >
+<  )              , )          >
+<  {              , {          >
 < SIGNWORD        , b          >
 < EVALUATION      , =          >
 < SIGNWORD        , a          >
@@ -39,7 +39,7 @@
 < SIGNWORD        , a          >
 < OPERATOR        , -          >
 < INTEGER         , 1          >
-< {}              , }          >
+<  }              , }          >
 <  ;              , ;          >
 < SIGNWORD        , x          >
 < EVALUATION      , =          >
@@ -54,11 +54,11 @@
 < SIGNWORD        , b          >
 <  ;              , ;          >
 < KEYWORD         , if         >
-< ()[].           , (          >
+<  (              , (          >
 < SIGNWORD        , x          >
-< LOGIC TOKEN     , >          >
+< RELATION TOKEN  , >          >
 < SIGNWORD        , y          >
-< ()[].           , )          >
+<  )              , )          >
 < SIGNWORD        , max        >
 < EVALUATION      , =          >
 < SIGNWORD        , x          >
@@ -67,4 +67,5 @@
 < SIGNWORD        , max        >
 < EVALUATION      , =          >
 < SIGNWORD        , y          >
-< {}              , }          >
+<  }              , }          >
+< #               , #          >

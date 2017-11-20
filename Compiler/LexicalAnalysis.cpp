@@ -11,9 +11,9 @@
 
 void LexicalAnalysis::scanwords() {
     char ch;
-    int cnt = 0;//行字符数
-    int row = 0;//行数
-
+    cnt = 0;//行字符数
+    row = 0;//行数
+	
     while(1) {
         //读入字符
         ch = fgetc(filein);
@@ -37,7 +37,17 @@ void LexicalAnalysis::scanwords() {
             buffer_scan[cnt++] = ch;
         }
     }
-    printf("The Lexical Analysis has been successfully done~\n");
+	output(fileout, "#", "#");
+	Token tk("#", "#");
+	tk.r = row;
+	tk.c = 1;
+	T.push(tk);
+    //printf("The Lexical Analysis has been successfully done~\n");
+}
+Token LexicalAnalysis::getToken() {
+	Token t = T.front();
+	T.pop();
+	return t;
 }
 
 void LexicalAnalysis::clearnotes() {
@@ -84,6 +94,7 @@ void LexicalAnalysis::getWord(int state) {
     char word[100];
     int chcnt = 0;
     int finish = 0;
+	Token t;
 
     for(int i=0; i<strlen(buffer_scan); i++) {
         switch(state/10) {
@@ -308,83 +319,105 @@ void LexicalAnalysis::getWord(int state) {
             state = 0;
             chcnt = 0;
             i--;
-
-            kindWord(word);
+            t = kindWord(word);
+			t.r = row;
+			t.c = i + 1;
+			T.push(t);
             break;
         default:
             break;
         }
         if(buffer_scan[i+1] == '\0') {
             word[chcnt] = '\0';
-            kindWord(word);
+			t = kindWord(word);
+			t.r = row;
+			t.c = i;
+			T.push(t);
         }
     }
 }
 
-void LexicalAnalysis::kindWord(char *str) {
+Token LexicalAnalysis::kindWord(char *str) {
+	string s = str;
+	Token to;
     if(iskeyword(str)) {
         output(fileout,"KEYWORD",str);
-    }
+		to.set(s, s);
+	}
     else if(isSignwords(str)) {
         output(fileout,"SIGNWORD",str);
-    }
+		to.set("SIGNWORD", s);
+	}
     else if(isInt(str)) {
         output(fileout,"INTEGER",str);
+		to.set("INTEGER", s);
     }
     else if(isFloats(str)) {
         output(fileout,"FLOAT",str);
+		to.set("FLOAT", s);
     }
     else if(str[0] == '\'' && str[strlen(str) - 1] == '\'') {
         output(fileout,"CHARACTER",str);
+		to.set("CHAR", s);
     }
     else if(str[0] == '"' && str[strlen(str) - 1] == '"') {
         output(fileout,"STRING",str);
+		to.set("STRING", s);
     }
     else if(spaces(str[0]) && str[0] != '"' && str[0] != '\'') {
         if(strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || strcmp(str, "<=") == 0 || strcmp(str, ">=") == 0) {
-            output(fileout,"LOGIC TOKEN",str);
+            output(fileout,"RELATION TOKEN",str);
+			to.set("RELATION", s);
         }
         else if(strcmp(str, "<<") == 0 || strcmp(str, ">>") == 0 || strcmp(str, ">>>") == 0 || strcmp(str, "<<<") == 0) {
             output(fileout,"STREAM TOKEN",str);
+			to.set("STREAM TOKEN", s);
         }
         else if(strchr(str, '=') != NULL) {
             if (strcmp(str, "==") == 0 || strcmp(str, "!=") == 0) {
-                output(fileout,"LOGIC TOKEN",str);
+                output(fileout,"RELATION TOKEN",str);
+				to.set("RELATION", s);
 			}
 			else {
                 output(fileout,"EVALUATION",str);
+				to.set("=", s);
 			}
         }
         else if(strcmp(str, "||") == 0) {
             output(fileout,"LOGIC TOKEN",str);
+			to.set("LOGIC", s);
         }
         else if(strcmp(str, "&&") == 0) {
             output(fileout,"LOGIC TOKEN",str);
+			to.set("LOGIC", s);
         }
         else if(strcmp(str, "!") == 0) {
             output(fileout,"LOGIC TOKEN",str);
+			to.set("LOGIC", s);
         }
         else if(strcmp(str, "++") == 0 || strcmp(str, "--") == 0 || strcmp(str, "~") == 0) {
             output(fileout,"++ -- ~",str);
+			to.set("++ -- ~", s);
         }
         else if(strlen(str) == 1) {
+			
             switch (str[0]) {
             case '?':
-            case ':': output(fileout,"? :",str); break;
-            case ' ': output(fileout,"SPACE",str); break;
-            case '{':
-            case '}': output(fileout,"{}",str); break;
+			case ':': output(fileout, "? :", str); break;
+			case ' ': output(fileout, "SPACE", str); break;
+			case '{': output(fileout, " { ", str); to.set("{", s); break;
+			case '}': output(fileout, " } ", str); to.set("}", s); break;
             case '[':
             case ']':
-            case '(':
-            case ')':
-            case '.': output(fileout,"()[].",str); break;
-            case ',': output(fileout," , ",str); break;
-            case ';': output(fileout," ; ",str); break;
-            case '+':
-            case '-':
-            case '*':
-            case '/':
+			case '(': output(fileout, " ( ", str); to.set("(", s); break;
+            case ')': output(fileout, " ) ", str); to.set("(", s); break;
+			case '.': output(fileout, " . ", str); break;
+			case ',': output(fileout, " , ", str); break;
+			case ';': output(fileout, " ; ", str); to.set(";", s); break;
+            case '+': output(fileout, "OPERATOR", str); to.set("+-", s); break;
+            case '-': output(fileout, "OPERATOR", str); to.set("+-", s); break;
+            case '*': output(fileout, "OPERATOR", str); to.set("*/", s); break;
+            case '/': output(fileout, "OPERATOR", str); to.set("*/", s); break;
             case '%': output(fileout,"OPERATOR",str); break;
             case '|':
             case '^':
@@ -395,6 +428,7 @@ void LexicalAnalysis::kindWord(char *str) {
     }
     else {
         output(fileout,"ERROR~!",str);
+		to.set("error", s);
     }
-
+	return to;
 }

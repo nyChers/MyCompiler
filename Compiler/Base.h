@@ -35,7 +35,7 @@ public:
         // charnum = 0;
     }
 	virtual ~Base() {};
-
+protected:
 	int Kind_Char(char);//判断字符类型
 	bool spaces(char); //当前空格是否可以消除
 	bool isLetter(char);//是否是字母
