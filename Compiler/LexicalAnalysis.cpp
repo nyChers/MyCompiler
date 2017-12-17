@@ -3,8 +3,8 @@
  * @Date:   2017-09-24T22:10:19+08:00
  * @Email:  zny_chers@hotmail.com
  * @Filename: LexicalAnalysis.cpp
- * @Last modified by:   NingYu Zhang
- * @Last modified time: 2017-11-20T20:34:35+08:00
+ * @Last modified by:   nyChers
+ * @Last modified time: 2017-09-28T17:42:27+08:00
  */
 
 #include "LexicalAnalysis.h"
@@ -13,7 +13,7 @@ void LexicalAnalysis::scanwords() {
     char ch;
     cnt = 0;//行字符数
     row = 0;//行数
-
+	
     while(1) {
         //读入字符
         ch = fgetc(filein);
@@ -322,7 +322,9 @@ void LexicalAnalysis::getWord(int state) {
             t = kindWord(word);
 			t.r = row;
 			t.c = i + 1;
-			T.push(t);
+			if (t.type != "") {
+				T.push(t);
+			}
             break;
         default:
             break;
@@ -332,7 +334,9 @@ void LexicalAnalysis::getWord(int state) {
 			t = kindWord(word);
 			t.r = row;
 			t.c = i;
-			T.push(t);
+			if (t.type != "") {
+				T.push(t);
+			}
         }
     }
 }
@@ -400,7 +404,7 @@ Token LexicalAnalysis::kindWord(char *str) {
 			to.set("++ -- ~", s);
         }
         else if(strlen(str) == 1) {
-
+			
             switch (str[0]) {
             case '?':
 			case ':': output(fileout, "? :", str); break;
@@ -410,9 +414,9 @@ Token LexicalAnalysis::kindWord(char *str) {
             case '[':
             case ']':
 			case '(': output(fileout, " ( ", str); to.set("(", s); break;
-            case ')': output(fileout, " ) ", str); to.set("(", s); break;
+            case ')': output(fileout, " ) ", str); to.set(")", s); break;
 			case '.': output(fileout, " . ", str); break;
-			case ',': output(fileout, " , ", str); break;
+			case ',': output(fileout, " , ", str); to.set(",", s); break;
 			case ';': output(fileout, " ; ", str); to.set(";", s); break;
             case '+': output(fileout, "OPERATOR", str); to.set("+-", s); break;
             case '-': output(fileout, "OPERATOR", str); to.set("+-", s); break;
