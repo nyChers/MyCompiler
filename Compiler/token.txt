@@ -18,6 +18,7 @@
 <  ;              , ;          >
 < SIGNWORD        , b          >
 < EVALUATION      , =          >
+< INTEGER         , 10         >
 <  ;              , ;          >
 < KEYWORD         , while      >
 <  (              , (          >
@@ -25,6 +26,7 @@
 < RELATION TOKEN  , >          >
 < INTEGER         , 0          >
 <  )              , )          >
+< KEYWORD         , do         >
 <  {              , {          >
 < SIGNWORD        , b          >
 < EVALUATION      , =          >

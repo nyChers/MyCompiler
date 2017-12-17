@@ -1,7 +1,7 @@
 main ()
 { int a,b,y,max;
-a=10;  b= ;
-while  (a>0)
+a=10;  b=10 ;
+while  (a>0) do
 { b=a+b*a;
 a=a-1
 };

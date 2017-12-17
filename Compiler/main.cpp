@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: main.cpp
  * @Last modified by:   NingYu Zhang
- * @Last modified time: 2017-12-17T16:30:58+08:00
+ * @Last modified time: 2017-12-17T20:15:54+08:00
  */
 
 
@@ -12,13 +12,36 @@
 #include <cstring>
 #include <string>
 #include <iomanip>
-
+#include <fstream>
+#include <iostream>
+using namespace std;
 //struct Token {
 //	string type;
 //	string val;
 //	int r;
 //	int c;
 //};
+
+struct Qua{
+	Qua(int l, string o, string dd1, string dd2, string r) {
+		line = l;
+		op = o;
+		d1 = dd1;
+		d2 = dd2;
+		res = r;
+	}
+	int line;
+	string op;
+	string d1;
+	string d2;
+	string res;
+};
+
+vector<Qua> QuaList;
+int currline = 1;
+int backline;
+int jumpline;
+
 Token lookahead;
 LexicalAnalysis lex("in.txt");
 bool errorflag = 0;
@@ -41,11 +64,11 @@ void FZYJ();	//赋值语句
 void TJYJ();	//条件语句
 void TJ();		//条件
 void XHYJ();	//循环语句
-void BDS();		//表达式
-void BDS1();	//表达式1
-void X();		//项
-void X1();		//项1
-void YZ();		//因子
+string BDS();		//表达式
+string BDS1(string);	//表达式1
+string X();		//项
+string X1(string);		//项1
+string YZ();		//因子
 
 
 void matchToken(string s) {
@@ -62,8 +85,18 @@ void outError(string s, int r, int c) {
 	cout << "\t\trow: " << r << "\t\tcol: " << c << endl;
 }
 
+ofstream outQua("outQua.txt");
 void printQua() {
+	for (int i = 0; i < QuaList.size(); i++) {
+		outQua << QuaList[i].line << "\t\t(" << QuaList[i].op << ",\t\t" << QuaList[i].d1 << ",\t\t" << QuaList[i].d2 << ",\t\t" << QuaList[i].res << ")" << endl;
+	}
+}
 
+int tnum = 0;
+string newSys() {
+	string r = "t";
+	r = r + to_string(tnum++);
+	return r;
 }
 
 //程序
@@ -189,10 +222,14 @@ void YJ() {
 
 void FZYJ() {
 	if (lookahead.type == "SIGNWORD") {
+		string res = lookahead.val;
 		matchToken("SIGNWORD");
 		if (lookahead.type == "=") {
 			matchToken("=");
-			BDS();
+			string op = "=";
+			string d1 = BDS();
+			string d2 = "/";
+			QuaList.push_back(Qua(currline++, op, d1, d2, res));
 		}
 		else {
 			outError(" 缺少 = ", lookahead.r, lookahead.c);
@@ -217,9 +254,13 @@ void TJYJ() {
 
 				YJ1();
 
+				QuaList.push_back(Qua(currline++, "GO",to_string(currline), "/", "/"));
+				QuaList[backline - 1].res = to_string(currline);
+				backline = currline - 1;
 				if (lookahead.type == "else") {
 					matchToken("else");
 					YJ1();
+					QuaList[backline - 1].d1 = to_string(currline);
 				}
 				else {
 					outError(" 缺少 else ", lookahead.r, lookahead.c);
@@ -256,7 +297,8 @@ void XHYJ() {
 				}
 
 				YJ1();
-
+				QuaList.push_back(Qua(currline++, "GO", to_string(backline), "/", "/"));
+				QuaList[backline - 1].res = to_string(currline);
 			}
 			else {
 				outError(" 缺少 ) ", lookahead.r, lookahead.c);
@@ -298,9 +340,24 @@ void YJ1() {
 }
 
 void TJ() {
-	BDS();
-
+	string d1 = BDS();
+	string op;
+	//if(d1=="")
+	//	outError(" 缺少 左符号 ", lookahead.r, lookahead.c);
 	if (lookahead.type == "RELATION") {
+		op = lookahead.val;
+		if (op == ">")
+			op = "<=";
+		else if (op == "<")
+			op = ">=";
+		else if (op == ">=")
+			op = "<";
+		else if (op == "<=")
+			op = ">";
+		else if (op == "==")
+			op = "!=";
+		else
+			op = "==";
 		matchToken("RELATION");
 
 	}
@@ -308,49 +365,67 @@ void TJ() {
 		outError(" 缺少 关系符号 ", lookahead.r, lookahead.c);
 	}
 
-	BDS();
+	string d2 = BDS();
+	//if (d2 == "")
+	//	outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
+	backline = currline;
+	string res = to_string(currline);
+	QuaList.push_back(Qua(currline++, op, d1, d2, res));
 }
 
-void BDS() {
-	X();
-	BDS1();
+string BDS() {
+	string res;
+	string in = X();
+	res = BDS1(in);
+	return res;
 }
 
-void BDS1() {
+string BDS1(string in) {
+	string d1 = in;
+	string op;
+	string res = in;
 	if (lookahead.type == "+-") {
+		op = lookahead.val;
 		matchToken("+-");
-		if (lookahead.type == ";") {
-			outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
-		}
-		else {
-			X();
-			BDS1();
-		}
+		string d2 = X();
+		res = newSys();
+		QuaList.push_back(Qua(currline++, op, d1, d2, res));
+		BDS1(res);
 
 	}
 
+	return res;
 	//空串
 }
 
-void X() {
-	YZ();
-	X1();
+string X() {
+	string in = YZ();
+	string res = X1(in);
+	return res;
 }
 
-void X1() {
+string X1(string in) {
+	string op;
+	string res = in;
 	if (lookahead.type == "*/") {
+		op = lookahead.val;
+		string d1 = in;
 		matchToken("*/");
-		YZ();
-		X1();
+		string d2 = YZ();
+		res = newSys();
+		QuaList.push_back(Qua(currline++, op, d1, d2, res));
+		X1(res);
 	}
 
+	return res;
 	//空串
 }
 
-void YZ() {
+string YZ() {
+	string d;
 	if (lookahead.type == "(") {
 		matchToken("(");
-		BDS();
+		d = BDS();
 		if (lookahead.type == ")")
 			matchToken(")");
 		else {
@@ -358,14 +433,17 @@ void YZ() {
 		}
 	}
 	else if (lookahead.type == "SIGNWORD") {
+		d = lookahead.val;
 		matchToken("SIGNWORD");
 	}
 	else if (lookahead.type == "INTEGER") {
+		d = lookahead.val;
 		matchToken("INTEGER");
 	}
 	else {
-		outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
+		outError(" 缺少 符号 ", lookahead.r, lookahead.c);
 	}
+	return d;
 }
 
 
