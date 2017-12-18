@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: main.cpp
  * @Last modified by:   NingYu Zhang
- * @Last modified time: 2017-12-17T20:15:54+08:00
+ * @Last modified time: 2017-12-18T19:58:01+08:00
  */
 
 
@@ -46,29 +46,29 @@ Token lookahead;
 LexicalAnalysis lex("in.txt");
 bool errorflag = 0;
 
-void matchToken(string);//±ê¼ÇÆ¥Åä
+void matchToken(string);//æ ‡è®°åŒ¹é…
 void outError(string,int,int);
-void CX();		//³ÌĞòÈë¿Ú
-void FCX();		//·Ö³ÌĞò
-void BLSMBF();	//±äÁ¿ËµÃ÷²¿·Ö
-void YJBF();	//Óï¾ä²¿·Ö
-void YJBF1();	//Óï¾ä²¿·Ö1
-void BLSM();	//±äÁ¿ËµÃ÷
-void BSFB();	//±êÊ¶·û±í
-void BSFB1();	//±êÊ¶·û±í1
-void BS();		//±êÊ¶·û
-void FHYJ();	//¸´ºÏÓï¾ä
-void YJ();		//Óï¾ä
-void YJ1();		//Óï¾ä1
-void FZYJ();	//¸³ÖµÓï¾ä
-void TJYJ();	//Ìõ¼şÓï¾ä
-void TJ();		//Ìõ¼ş
-void XHYJ();	//Ñ­»·Óï¾ä
-string BDS();		//±í´ïÊ½
-string BDS1(string);	//±í´ïÊ½1
-string X();		//Ïî
-string X1(string);		//Ïî1
-string YZ();		//Òò×Ó
+void CX();		//ç¨‹åºå…¥å£
+void FCX();		//åˆ†ç¨‹åº
+void BLSMBF();	//å˜é‡è¯´æ˜éƒ¨åˆ†
+void YJBF();	//è¯­å¥éƒ¨åˆ†
+void YJBF1();	//è¯­å¥éƒ¨åˆ†1
+void BLSM();	//å˜é‡è¯´æ˜
+void BSFB();	//æ ‡è¯†ç¬¦è¡¨
+void BSFB1();	//æ ‡è¯†ç¬¦è¡¨1
+void BS();		//æ ‡è¯†ç¬¦
+void FHYJ();	//å¤åˆè¯­å¥
+void YJ();		//è¯­å¥
+void YJ1();		//è¯­å¥1
+void FZYJ();	//èµ‹å€¼è¯­å¥
+void TJYJ();	//æ¡ä»¶è¯­å¥
+void TJ();		//æ¡ä»¶
+void XHYJ();	//å¾ªç¯è¯­å¥
+string BDS();		//è¡¨è¾¾å¼
+string BDS1(string);	//è¡¨è¾¾å¼1
+string X();		//é¡¹
+string X1(string);		//é¡¹1
+string YZ();		//å› å­
 
 
 void matchToken(string s) {
@@ -99,7 +99,7 @@ string newSys() {
 	return r;
 }
 
-//³ÌĞò
+//ç¨‹åº
 void CX() {
 	if (lookahead.type == "main") {
 		matchToken("main");
@@ -117,23 +117,23 @@ void CX() {
 						cout << "Finished!" << endl;
 					}
 					else {
-						outError(" È±ÉÙ } ", lookahead.r, lookahead.c);
+						outError(" ç¼ºå°‘ } ", lookahead.r, lookahead.c);
 					}
 				}
 				else {
-					outError(" È±ÉÙ { ", lookahead.r, lookahead.c);
+					outError(" ç¼ºå°‘ { ", lookahead.r, lookahead.c);
 				}
 			}
 			else {
-				outError(" È±ÉÙ ) ", lookahead.r, lookahead.c);
+				outError(" ç¼ºå°‘ ) ", lookahead.r, lookahead.c);
 			}
 		}
 		else {
-			outError(" È±ÉÙ ( ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ ( ", lookahead.r, lookahead.c);
 		}
 	}
 	else {
-		outError(" È±ÉÙ main ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ main ", lookahead.r, lookahead.c);
 	}
 
 }
@@ -145,7 +145,7 @@ void FCX() {
 		matchToken(";");
 	}
 	else {
-		outError(" È±ÉÙ ; ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ ; ", lookahead.r, lookahead.c);
 	}
 
 	YJBF();
@@ -168,7 +168,7 @@ void YJBF1() {
 		YJBF1();
 	}
 
-	//¿Õ´®
+	//ç©ºä¸²
 }
 
 void BLSM() {
@@ -176,7 +176,7 @@ void BLSM() {
 		matchToken("int");
 	}
 	else {
-		outError(" È±ÉÙ ±äÁ¿ËµÃ÷ ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ å˜é‡è¯´æ˜ ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -192,7 +192,7 @@ void BSFB1() {
 		BSFB1();
 	}
 
-	//¿Õ´®
+	//ç©ºä¸²
 
 }
 
@@ -201,7 +201,7 @@ void BS() {
 		matchToken("SIGNWORD");
 	}
 	else {
-		outError(" È±ÉÙ ±êÊ¶·û ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ æ ‡è¯†ç¬¦ ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -216,7 +216,7 @@ void YJ() {
 		XHYJ();
 	}
 	else {
-		outError(" Óï¾ä¿Õ ", lookahead.r, lookahead.c);
+		outError(" è¯­å¥ç©º ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -232,12 +232,12 @@ void FZYJ() {
 			QuaList.push_back(Qua(currline++, op, d1, d2, res));
 		}
 		else {
-			outError(" È±ÉÙ = ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ = ", lookahead.r, lookahead.c);
 			YJ();
 		}
 	}
 	else {
-		outError(" È±ÉÙ ×ó·ûºÅ ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ å·¦ç¬¦å· ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -263,19 +263,19 @@ void TJYJ() {
 					QuaList[backline - 1].d1 = to_string(currline);
 				}
 				else {
-					outError(" È±ÉÙ else ", lookahead.r, lookahead.c);
+					outError(" ç¼ºå°‘ else ", lookahead.r, lookahead.c);
 				}
 			}
 			else {
-				outError(" È±ÉÙ ) ", lookahead.r, lookahead.c);
+				outError(" ç¼ºå°‘ ) ", lookahead.r, lookahead.c);
 			}
 		}
 		else {
-			outError(" È±ÉÙ ( ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ ( ", lookahead.r, lookahead.c);
 		}
 	}
 	else {
-		outError(" È±ÉÙ if ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ if ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -293,7 +293,7 @@ void XHYJ() {
 					matchToken("do");
 				}
 				else {
-					outError(" È±ÉÙ do ", lookahead.r, lookahead.c);
+					outError(" ç¼ºå°‘ do ", lookahead.r, lookahead.c);
 				}
 
 				YJ1();
@@ -301,15 +301,15 @@ void XHYJ() {
 				QuaList[backline - 1].res = to_string(currline);
 			}
 			else {
-				outError(" È±ÉÙ ) ", lookahead.r, lookahead.c);
+				outError(" ç¼ºå°‘ ) ", lookahead.r, lookahead.c);
 			}
 		}
 		else {
-			outError(" È±ÉÙ ( ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ ( ", lookahead.r, lookahead.c);
 		}
 	}
 	else {
-		outError(" È±ÉÙ while ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ while ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -323,11 +323,11 @@ void FHYJ() {
 			matchToken("}");
 		}
 		else {
-			outError(" È±ÉÙ } ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ } ", lookahead.r, lookahead.c);
 		}
 	}
 	else {
-		outError(" È±ÉÙ { ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ { ", lookahead.r, lookahead.c);
 	}
 }
 
@@ -343,7 +343,7 @@ void TJ() {
 	string d1 = BDS();
 	string op;
 	//if(d1=="")
-	//	outError(" È±ÉÙ ×ó·ûºÅ ", lookahead.r, lookahead.c);
+	//	outError(" ç¼ºå°‘ å·¦ç¬¦å· ", lookahead.r, lookahead.c);
 	if (lookahead.type == "RELATION") {
 		op = lookahead.val;
 		if (op == ">")
@@ -362,12 +362,12 @@ void TJ() {
 
 	}
 	else {
-		outError(" È±ÉÙ ¹ØÏµ·ûºÅ ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ å…³ç³»ç¬¦å· ", lookahead.r, lookahead.c);
 	}
 
 	string d2 = BDS();
 	//if (d2 == "")
-	//	outError(" È±ÉÙ ÓÒ·ûºÅ ", lookahead.r, lookahead.c);
+	//	outError(" ç¼ºå°‘ å³ç¬¦å· ", lookahead.r, lookahead.c);
 	backline = currline;
 	string res = to_string(currline);
 	QuaList.push_back(Qua(currline++, op, d1, d2, res));
@@ -395,7 +395,7 @@ string BDS1(string in) {
 	}
 
 	return res;
-	//¿Õ´®
+	//ç©ºä¸²
 }
 
 string X() {
@@ -418,7 +418,7 @@ string X1(string in) {
 	}
 
 	return res;
-	//¿Õ´®
+	//ç©ºä¸²
 }
 
 string YZ() {
@@ -429,7 +429,7 @@ string YZ() {
 		if (lookahead.type == ")")
 			matchToken(")");
 		else {
-			outError(" È±ÉÙ £© ", lookahead.r, lookahead.c);
+			outError(" ç¼ºå°‘ ï¼‰ ", lookahead.r, lookahead.c);
 		}
 	}
 	else if (lookahead.type == "SIGNWORD") {
@@ -441,7 +441,7 @@ string YZ() {
 		matchToken("INTEGER");
 	}
 	else {
-		outError(" È±ÉÙ ·ûºÅ ", lookahead.r, lookahead.c);
+		outError(" ç¼ºå°‘ ç¬¦å· ", lookahead.r, lookahead.c);
 	}
 	return d;
 }
@@ -454,7 +454,7 @@ int main() {
 	CX();
 
 	if (errorflag) {
-		cout << "ÊäÈë´úÂë´æÔÚ´íÎó£¬²»Éú³ÉËÄÔªÊ½¡£" << endl;
+		cout << "è¾“å…¥ä»£ç å­˜åœ¨é”™è¯¯ï¼Œä¸ç”Ÿæˆå››å…ƒå¼ã€‚" << endl;
 	}
 	else {
 		printQua();
