@@ -136,6 +136,10 @@ void LexicalAnalysis::getWord(int state) {
                 case ';':
                 case ',':
                 case '.':
+				case '*':
+				case '+':
+				case '-':
+				case '/':
                     state = 50;
                     word[chcnt] = '\0';
                     finish = 1;
