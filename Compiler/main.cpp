@@ -167,7 +167,7 @@ void YJBF1() {
 		YJ();
 		YJBF1();
 	}
-	else if (lookahead.type == "{") {
+	else if (lookahead.type == "}") {
 
 	}
 	else if (lookahead.type == "SIGNWORD") {
@@ -291,7 +291,7 @@ void XHYJ() {
 		matchToken("while");
 		if (lookahead.type == "(") {
 			matchToken("(");
-			backline = currline;
+			jumpline = currline;
 			TJ();
 
 			if (lookahead.type == ")") {
@@ -304,7 +304,7 @@ void XHYJ() {
 				}
 
 				YJ1();
-				QuaList.push_back(Qua(currline++, "GO", to_string(backline), "/", "/"));
+				QuaList.push_back(Qua(currline++, "GO", to_string(jumpline), "/", "/"));
 				QuaList[backline - 1].res = to_string(currline);
 			}
 			else {
@@ -373,6 +373,7 @@ void TJ() {
 	}
 
 	string d2 = BDS();
+	backline = currline;
 	if (d2 == "")
 		outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
 	string res = to_string(currline);
