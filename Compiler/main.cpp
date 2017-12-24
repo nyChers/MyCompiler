@@ -4,7 +4,7 @@
  * @Email:  zny_chers@hotmail.com
  * @Filename: main.cpp
  * @Last modified by:   NingYu Zhang
- * @Last modified time: 2017-12-18T19:58:01+08:00
+ * @Last modified time: 2017-11-16T20:44:06+08:00
  */
 
 
@@ -167,7 +167,14 @@ void YJBF1() {
 		YJ();
 		YJBF1();
 	}
+	else if (lookahead.type == "{") {
 
+	}
+	else if (lookahead.type == "SIGNWORD") {
+		outError(" 缺少 ; ", lookahead.r, lookahead.c);
+		YJ();
+		YJBF1();
+	}
 	//空串
 }
 
@@ -246,7 +253,7 @@ void TJYJ() {
 		matchToken("if");
 		if (lookahead.type == "(") {
 			matchToken("(");
-
+			backline = currline;
 			TJ();
 
 			if (lookahead.type == ")") {
@@ -284,7 +291,7 @@ void XHYJ() {
 		matchToken("while");
 		if (lookahead.type == "(") {
 			matchToken("(");
-
+			backline = currline;
 			TJ();
 
 			if (lookahead.type == ")") {
@@ -342,8 +349,8 @@ void YJ1() {
 void TJ() {
 	string d1 = BDS();
 	string op;
-	//if(d1=="")
-	//	outError(" 缺少 左符号 ", lookahead.r, lookahead.c);
+	if(d1=="")
+		outError(" 缺少 左符号 ", lookahead.r, lookahead.c);
 	if (lookahead.type == "RELATION") {
 		op = lookahead.val;
 		if (op == ">")
@@ -366,9 +373,8 @@ void TJ() {
 	}
 
 	string d2 = BDS();
-	//if (d2 == "")
-	//	outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
-	backline = currline;
+	if (d2 == "")
+		outError(" 缺少 右符号 ", lookahead.r, lookahead.c);
 	string res = to_string(currline);
 	QuaList.push_back(Qua(currline++, op, d1, d2, res));
 }
